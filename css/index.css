@@ -1,0 +1,73 @@
+﻿body {
+}
+
+#friendListMap{
+    margin:0.5px;
+}
+/*
+.FriendAdapterList{
+    display:table;
+}
+
+.FriendAdapterList table tr td img{
+    max-width:100px;
+    max-height:100px;
+}
+
+.header{
+ position: fixed !important;
+ width:100%;
+ top: 0px;
+ z-index:99;
+}
+.content{
+    margin-top:22px;
+}
+/*
+#contentfriendListList{
+    padding-top : 45px;
+}
+
+#contentfriendListList form {
+    position :fixed;
+    top      : 36px;
+    left     : 0px;
+    width    : 100%;
+    z-index  : 1;
+}
+/*
+.friendListAdapter img{
+    max-height:100px;
+    margin-right:50px;
+    max-width: 100px;
+}
+
+.friendListAdapter:hover{
+    background-color:aquamarine;
+}*/
+
+#mappa, #map-canvas, #mappa ._gmaps_cdv_{
+     width: 100% !important;
+     height: 100% !important;
+     padding: 0; 
+}
+
+#map_canvas{
+    z-index:-1;
+}
+#left-panel{
+    margin-top:44px;
+    background-color:Highlight;
+}
+
+#left-panel img{
+    max-height:100px;
+    max-width:100px;
+}
+
+#NotizieList li{
+    border-bottom-style:solid;
+    border-top-style:solid;
+}
+
+/*******************/

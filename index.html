@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+
+    <!--
+        Personalizzare, se necessario, i criteri di sicurezza del contenuto nel tag META seguente. Aggiungere 'unsafe-inline' a default-src per abilitare JavaScript inline.
+        Per dettagli, vedere http://go.microsoft.com/fwlink/?LinkID=617521
+   -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com http://server-geoshare.rhcloud.com/Controller.php  'unsafe-eval' ;script-src 'self' 'unsafe-eval'  'unsafe-inline' ; style-src 'self' 'unsafe-inline'; media-src * ;img-src data: 'self' http://server-geoshare.rhcloud.com/FotoProfilo/ https://static.xx.fbcdn.net/rsrc.php/v1/yi/r/odA9sNLrE86.jpg http://server-geoshare.rhcloud.com/Uploads/Temp/ 'unsafe-inline' 'unsafe-eval';">
+     
+    <title>GeoShareJS</title>
+
+    <!-- Riferimenti a GeoShareJS -->
+    <link href="css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+
+    <script src="scripts/jquery-1.12.1.min.js"></script>
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+    <div data-role="page" id="login">
+
+        <div data-role="header">
+            <h1>Login</h1>
+        </div><!-- /header -->
+
+        <div data-role="content" >
+            <label>Email</label>
+            <input type="email" />
+            <label>Password</label>
+            <input type="password" />
+            <a href="#menu">Login</a><br />
+            <a href="#sigup">Non sei registrato? Registrati!</a><br />
+        </div><!-- /content -->
+    </div><!-- /Login Page--> 
+
+    <div data-role="page" id="sigup">
+
+        <div data-role="header">
+            <h1>Registrazione</h1>
+        </div><!-- /header -->
+
+        <div data-role="content">
+            <label>Username</label>
+            <input type="text" />
+            <label>email</label>
+            <input type="email" />
+            <label>Password</label>
+            <input type="password" />
+            <a href="#identificativo_pagina_2">Registrati</a><br />
+            <a href="#login">Sei Registrato? Effettua il login!</a><br />
+        </div><!-- /content -->
+
+      
+    </div><!-- /Registration Page -->  
+
+    <div data-role="page" id="menu">
+
+        <div data-role="header">
+            <h1>Menu Principale</h1>
+        </div><!-- /header -->
+
+        <div data-role="content">
+            <a href="#mappa" class="ui-btn">Mappa</a>
+            <a href="#friendlist" class="ui-btn">Amici</a>
+            <a href="#searchfriend" class="ui-btn">Cerca Amici</a>
+            <a href="#notifiche" class="ui-btn">Notifiche</a>
+            <a href="#settingsProfile" class="ui-btn">Modifiche Profilo</a>
+            <a href="javascript:TestDB()" class="ui-btn">Logout</a>
+            <a href="javascript:TestDBSelect()" class="ui-btn">Logout2</a>
+
+        </div><!-- /content -->
+    </div><!-- /MainMenu page -->
+
+    <div data-role="page"   id="mappa" >
+
+        <div data-role="header">            
+           <a href="#left-panel" data-iconpos="notext" data-icon="bars" ></a>
+            <h1>Mappa</h1>
+            <div class="ui-btn-right" data-type="horizontal">        
+                <a id="closeMapMenu" href="#menu" data-role="button" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
+                <a id="refreshbutton" data-icon="refresh" data-role="button" data-iconpos="notext" data-inline="true">Refresh</a>
+                <a href="#MapSettings" data-icon="gear" data-role="button" data-iconpos="notext"  data-inline="true">Settings</a>
+            </div>
+        </div><!-- /header -->
+
+        <div data-role="content" id="map_canvas" role="main">   
+                   
+        </div><!-- /content -->       
+        <div data-role="popup" id="popupBasic" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+            <div data-role="header" data-theme="a">
+                <h1>Invia Foto</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <img id="MapPopupImg"/>
+                <h3 class="ui-title" id="MapPopupText">Vuoi inviare una foto a {user} ? </h3>
+                <a href="#SendFoto" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Si</a>
+                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">No</a>
+            </div>
+        </div> <!--Dialog-->
+        <div data-role="panel" id="left-panel" data-theme="c"  data-display="overlay">
+            <ul id="friendListMap" data-role="listview" data-theme="c" data-dividertheme="d" data-icon="false">
+
+            </ul>
+        </div><!-- /panel -->        
+    </div><!-- /Mappa page -->    
+
+    <div data-role="page" id="SendFoto">
+
+        <div data-role="header">
+            <a href="#menu" data-rel="back">Indietro</a>
+            <h1>Invia Foto</h1>
+        </div><!-- /header -->
+        <div data-role="content">
+            <a data-role="button" id="TakeFromCamera">Scatta Foto</a>
+            <a data-role="button" id="OpenFromGalleryButton">Apri dalla Galleria</a>
+            <img id="fotoAnteprima"/>
+            <a data-role="button" id="sendFotoButton">Invia</a>
+        </div><!-- /content -->
+    </div> <!-- SendFoto page-->
+
+    <div data-role="page" id="friendlist" data-dom-cache="false">
+
+        <div data-role="header" class="header" data-position="fixed">
+            <a href="#menu" data-rel="back">Indietro</a>
+            <h1>Lista Amici</h1>
+        </div><!-- /header -->
+
+        <div data-role="content" class="content">
+            <ul id="friendListList" data-role="listview" data-icon="false" data-split-theme="a" data-inset="true" data-filter="true">                
+                
+            </ul>
+        </div><!-- /content -->
+    </div><!-- /FriendList page -->
+
+    <div data-role="page" id="searchfriend" data-rel="back">
+
+        <div data-role="header">
+            <a href="#menu" data-rel="back">Indietro</a>
+            <h1>Cerca Amici</h1>
+            <a href="#menu" data-icon="plus" data-role="button" data-iconpos="notext"  data-inline="true">Aggiungi Amico</a>
+        </div><!-- /header -->
+        <div data-role="content">
+            <ul id="NotfriendList" data-role="listview" data-theme="c" data-dividertheme="d" data-icon="false"  data-filter="true" data-filter-placeholder="Cerca..." data-inset="true">
+                
+            </ul>
+
+        </div><!-- /content -->
+
+    </div><!-- /Search Friend page -->
+
+    <div data-role="page" id="notifiche" data-rel="back">       
+        <div data-role="header" data-position="fixed">            
+            <a href="#menu" data-rel="back">Indietro</a>
+            <h1>Notifiche</h1>
+        </div><!-- /header -->
+        
+        <div data-role="content">
+            
+                <ul id="NotizieList" class="touch" data-role="listview" data-icon="false" data-split-icon="delete" data-split-theme="d">
+                    <li>
+                    </li>
+                </ul><!--Lista Notizie-->
+        </div><!-- /content -->
+        <div data-role="popup" id="popupNotizie" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+            <div data-role="header" data-theme="a">
+                <h1>Notifica</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <img id="popupNotizieImg" style="margin:0 auto" />
+                <h3 class="ui-title" id="popupNotizieText">Vuoi Accettare user{}? </h3>
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b" id="AcceptButtonPopupNotizie">Si</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-b" data-rel="back">No</a>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div><!-- /Notify page -->
+
+    <div data-role="page" id="settingsProfile" data-rel="back">
+
+        <div data-role="header">
+            <a href="#menu" data-rel="back">Indietro</a>
+            <h1>Modifica Profilo</h1>
+        </div><!-- /header -->
+        <div data-role="content">
+        <img />
+        <hr />
+        <label>Nome</label><input type="text" />
+        <label>Telefono</label><input type="text" />
+
+        </div><!-- /content -->
+    </div><!-- / Settings page -->
+
+    <div data-role="page" id="userPage"> <!-- UserPage-->
+
+        <div data-role="header">
+            <a href="#menu" data-rel="back">Indietro</a>
+            <h1>Modifica Profilo</h1>
+        </div><!-- /header -->
+        <div data-role="content">
+            <img id="imgUtente" style="max-height:350px;" />
+            <hr />
+            <label>Nome</label><h3 id="nomeUtente"></h3>
+            <label>Telefono</label><h3 id="telefonoUtente"></h3>
+
+        </div><!-- /content -->
+    </div> <!-- Profilo Utente-->
+
+    <div data-role="page" id="MapSettings">
+        <!-- UserPage-->
+
+        <div data-role="header">
+            <a href="#menu" data-rel="back">Indietro</a>
+            <h1>Impostazioni</h1>
+        </div><!-- /header -->
+        <div data-role="content">
+            <label>Tipo di Mappa:</label>
+            <select name="MapType" class="Settings">
+                <option value="roadmap" selected="selected">RoadMap</option>
+                <option value="satellite">Satellite</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="terrain">terrain</option>
+            </select>
+            <hr />
+            <label>Ordine Amici:</label>
+            <select name="FriendOrder"  class="Settings">
+                <option value="alfabetico" selected="selected">Alfabetico</option>
+                <option value="distanza">Distanza</option>
+            </select>
+        </div><!-- /content -->
+    </div> <!-- Impostazioni Mappa-->
+
+    <!-- Riferimento Cordova aggiunto all'app durante la compilazione. -->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>    
+    
+
+    <script src="scripts/index.js"></script>
+    <script src="scripts/functions.js"></script>
+    <script type="text/javascript" src="scripts/PushNotification.js"></script>
+</body>
+</html>
